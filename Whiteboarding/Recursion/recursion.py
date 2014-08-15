@@ -24,46 +24,87 @@ should be).
 
 # Multiply all the elements in a list using recursion
 def multiply_list(l):
-    return 1
+    if not l:
+        return 0
+    first = l[0]
+    rest = l[1:]
+    if rest:
+        return first * multiply_list(rest)
+    return first
+
 
 # Return the factorial of n
 def factorial(n):
-    return 1
+    if n == 1:
+        return 1
+    return n * factorial(n-1)
 
 # Count the number of elements in the list l without using loops or the len() function
 def count_list(l):
-    return 0
+    if not l:
+        return 0
+    return count_list(l[1: ]) + 1
 
 # Sum all of the elements in a list without using loops or the sum() function
 def sum_list(l):
-    return 0
+    if not l:
+        return 0
+    return l[0] + sum_list(l[1:])
 
 # Reverse a list recursively without loops, the reverse() function or list[::-1]
 def reverse(l):
-    return []
+    if not l:
+        return []
+    return reverse(l[1:]) + [l[0]]
+
 
 # Fibonacci returns the nth fibonacci number. The nth fibonacci number is
 # defined as fib(n) = fib(n-1) + fib(n-2)
 def fibonacci(n):
-    return 1
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    return fibonacci(n-1) + fibonacci(n-2)
 
 # Finds the item i in the list l.... RECURSIVELY
 # Return the item if it is in the list or None if not found.
 def find(l, i):
-    return None
+    if not l:
+        return None
+    first = l[0]
+    rest = l[1:]
+    if i == first:
+        return i
+    return find(rest, i)
 
 # Determines if a string is a palindrome
 # A palindrome is any string that is the same forwards and backwords.
 #   (e.g. radar, racecar, aibohphobia)
 # Solve recursively, 
-def palindrome(some_string):
-    return False
+def palindrome(s):
+    if not s:
+        return True
+    first = s[0]
+    last = s[-1:]
+    rest = s[1:-1]
+    if rest:
+        return first == last and palindrome(rest)
+    return first == last
 
 # Given the width and height of a sheet of paper, and the number of times to fold it,
 # return the final dimensions of the sheet as a tuple. 
 # NOTE: Assume that you always fold in half along the longest edge of the sheet.
 def fold_paper(width, height, folds):
-    return (0, 0)
+    if not width and height:
+        return (0, 0)
+    if not folds:
+        return (width, height)
+    if width > height:
+        width =  width / 2.0
+    else:
+        height = height / 2.0
+    return fold_paper(width, height, folds - 1)
 
 # Count up
 # Print all the numbers from 0 to target.
@@ -76,7 +117,9 @@ def fold_paper(width, height, folds):
 # Note #2: We're printing out the numbers, so this script does not 
 #          need to return anything!
 def count_up(target, n):
-    pass
+    if n == target:
+        print n
+    print n
 
 if __name__ == "__main__":
     count_up(100, 0)
