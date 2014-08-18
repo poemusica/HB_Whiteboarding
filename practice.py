@@ -1,5 +1,6 @@
-# reverse a list in place
+import random
 
+# QUESTION 1: reverse a list in place
 def cust_reverse(l):
 	mid = (len(l) - 1) /2
 	for i in range(mid):
@@ -21,7 +22,7 @@ def cust_reverse2(l):
 
 # print cust_reverse2([9, 8, 7, 6, 5, 4, 3, 2, 1])
 
-# produce a list of unique (or non-unique) items in a list
+# QUESTION 2: produce a list of unique (or non-unique) items in a list
 # in this case, run-time is n^2
 
 def unique(l):
@@ -46,4 +47,30 @@ def unique_dict(l):
 			results.append(key)
 	return results
 
-print unique_dict([3, 4, 5, 6, 4, 7, 8, 3, 2])
+# print unique_dict([3, 4, 5, 6, 4, 7, 8, 3, 2])
+
+# QUESTION 3: write fibonocci with O(n) time and O(1) space
+def fib(n):
+	prev = 1
+	prev_prev = 0
+	current = 1
+	for i in range(n):
+		current = prev + prev_prev
+		prev_prev = prev
+		prev = current
+	return current
+
+# for i in range(5):
+# 	print i, fib(i)
+
+
+# QUESTION 4: Shuffle a list in place.
+def shuffle(l):
+	for i in range(len(l)):
+		r = random.randint(i, len(l)-1)
+		temp = l[i]
+		l[i] = l[r]
+		l[r] = temp
+l = [0, 1, 2, 3, 4, 5, 6]
+shuffle(l)
+print l

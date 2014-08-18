@@ -5,6 +5,7 @@ Interview Prep Essentials
 * data structures (linked lists, trees)
 * recursion
 * dynamic programming problems 
+* big 0 run-time and space complexity
 
 fundamentally, comparison sort is nlogn. 
 fastest sort
