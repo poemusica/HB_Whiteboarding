@@ -31,6 +31,16 @@ def depth_first_traversal(node):
     depth_first_traversal(node.right)
 
 def breadth_first_traversal(node):
+    q = []
+    q.append(node)
+    while q:
+        n = q.pop(0)
+        print n.value
+
+        if n.left:
+            q.append(n.left)
+        if n.right:
+            q.append(n.right)
     
 
 # TEST
@@ -45,5 +55,7 @@ def breadth_first_traversal(node):
 # root.right.left.left = BinaryTreeNode(8)
 # root.right.left.right = BinaryTreeNode(9)
 # root.right.right = BinaryTreeNode(10)
+
+# breadth_first_traversal(root)
 
 # depth_first_traversal(root)
