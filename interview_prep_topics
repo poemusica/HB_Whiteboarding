@@ -9,3 +9,8 @@ Interview Prep Essentials
 
 fundamentally, comparison sort is nlogn. 
 fastest sort
+
+PYTHON
+* list comprehensions
+* dictionary comprehensions
+* generators

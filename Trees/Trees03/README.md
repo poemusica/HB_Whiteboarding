@@ -32,7 +32,7 @@ basic operators and integers.
 
 Second, instead simply putting operator tokens on the output queue, whenever an
 operator is going to be moved to the output queue, instead it combines that
-operator with the last two elements on the queueand turns it into a binary tree
+operator with the last two elements on the queue and turns it into a binary tree
 node and puts the node on the queue.
 
 * While there are tokens to be read:

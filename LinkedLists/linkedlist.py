@@ -39,3 +39,41 @@ class LinkedList:
 				return
 			else:
 				node = node.next
+
+	def kth_from_end(self, k):
+		if not self.head:
+			return None
+		if k < 0:
+			return None
+
+		count = 0
+		current_tail = self.head
+		current_k = self.head
+
+		while current_tail:
+			count += 1
+
+			if count > k:
+				current_k = current_k.next
+
+			current_tail = current_tail.next
+		
+		if count < k:
+			return None
+
+		return current_k
+
+	def center_node(self):
+		if not self.head:
+			return None
+
+		current_center = self.head
+		current_tail = self.head.next
+
+		while current_tail and current_tail.next:
+			current_center = current_center.next
+			current_tail = current_tail.next.next
+
+		return current_center
+
+

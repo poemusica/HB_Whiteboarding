@@ -14,13 +14,19 @@ def consume(token_list):
 
 def build_parse_tree(token_list):
     """Takes in a token list and produces a parse tree according to the rules in the README"""
-    # REPLACE THIS WITH REAL CODE
-    root = BinaryTreeNode("+")
-    left = BinaryTreeNode(3)
-    right = BinaryTreeNode(2)
-    root.left = left
-    root.right = right
-    return root
+    node = BinaryTreeNode(None)
+    while token_list:
+        token = consume(token_list)
+        if token == "(":
+            node.left = build_parse_tree(token_list)
+        if token in ['+', '-', '/', '*']:
+            node.value = token
+            node.right = build_parse_tree(token_list)
+        if is_num(token):
+            node.value = int(token)
+            return node
+        if token == ")":
+            return node
 
 def is_num(string):
     try:
@@ -45,7 +51,10 @@ def evaluate_tree(node):
 
 def main():
     sample_string = "(((3 + 2) * (4 - 1) / 3 + 7) * (1 + (-5 + 6)))"
+    print "answer should be: %d" % (((3 + 2) * (4 - 1) / 3 + 7) * (1 + (-5 + 6))) 
+    # sample_string = "((2 + 5) * 5)"
     tokens = tokenize(sample_string)
+    print tokens
     tree = build_parse_tree(tokens)
     print evaluate_tree(tree)
 

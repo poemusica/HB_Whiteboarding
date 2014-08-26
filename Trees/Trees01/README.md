@@ -88,6 +88,7 @@ You will also need to fill in the depth_first_traversal method. To implement
 the behavior described above.
 
 As you do, run the tests to validate whether or not your implementation works.
+Note: you need to install pytest.
 
     py.test -x
 
