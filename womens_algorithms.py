@@ -6,16 +6,6 @@ import random
 # ==================================
 # QUESTION 1: Write a method that converts an integer to its Roman numeral equivalent, i.e., 476 => 'CDLXXVI'.
 
-# arabic_to_roman = {
-# 	1: 'I', 
-# 	5: 'V', 
-# 	10: 'X', 
-# 	50: 'L', 
-# 	100: 'C', 
-# 	500: 'D', 
-# 	1000: 'M'
-# 	}
-
 arabic_to_roman = (
 	(1000, 'M'),
 	(900, 'CM'),
@@ -43,16 +33,6 @@ def number_to_numeral(n):
 		result = n/m
 		n = n - result * m
 		numeral.append(rom * result)
-	# ones place
-	# if n % 10 == 9:
-	# 	numeral.append('IX')
-	# elif (n / 5) % 2 and (n / 5 > 0):
-	# 	numeral.append('V')
-	# 	numeral.append('I' * (n % 5))
-	# elif n % 5 == 4:
-	# 	numeral.append('IV')
-	# elif n % 10:
-	# 	numeral.append( 'I' * (n % 10))
 
 	return "".join(numeral)
 
