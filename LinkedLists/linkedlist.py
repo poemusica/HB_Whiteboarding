@@ -22,6 +22,7 @@ class LinkedList:
 		if self.head == None:
 			self.head = node
 			self.tail = node
+			return
 
 		self.tail.next = node
 		self.tail = node
@@ -29,15 +30,23 @@ class LinkedList:
 	def delete(self, data):
 		if self.head == None:
 			return
-		if self.head.data == data:
-			self.head = self.head.next
-			return
 
+		if self.head.data == data:
+			if not self.head.next:
+				self.tail = None
+			self.head = self.head.next
+			return	
+		
+		prev = self.head
 		node = self.head.next
-		while node.data:
+		while node:
 			if node.data == data:
-				return
+				if not node.next:
+					self.tail = prev
+				prev.next = node.next
+				break
 			else:
+				prev = node
 				node = node.next
 
 	def kth_from_end(self, k):
@@ -75,5 +84,25 @@ class LinkedList:
 			current_tail = current_tail.next.next
 
 		return current_center
+
+	def find(self, target):
+		node = self.head
+		if node.data == target:
+			return node
+		while node.next:
+			if node.data == target:
+				return node
+			else:
+				node = node.next
+
+	def remove_duplicates(self):
+		d = {}
+		node = self.head
+		while node:
+			d[node.data] = d.get(node.data, 0) + 1
+			node = node.next
+		for k in d:
+			while d[k] > 1:
+				self.remove(k)
 
 

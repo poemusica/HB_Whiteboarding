@@ -200,8 +200,8 @@ def survivor(n):
 	return next_pow_two - total
 
 # Test survivor function
-for i in range(101):
-	print "list of length: ", i, "\tsurvivor is: ", survivor(i)
+# for i in range(101):
+# 	print "list of length: ", i, "\tsurvivor is: ", survivor(i)
 
 # circularly linked list solution
 class Node():
@@ -309,4 +309,27 @@ class CircularLinkedList():
 # 		print "\tsurvivor is: ", n.data
 
 # ==================================
-# QUESTION 4: 
+# QUESTION 4: Find the longest palindrom in a string.
+def longest_palindrome(s):
+	max_len = 0
+	longest = []
+
+	for i in range(len(s)):
+		centroid = [s[i]]
+		j = 1
+		while i - j > -1 and i + j < len(s):
+			if s[i - j] != s[i + j]:
+				break
+			centroid.insert(0, s[i - j])
+			centroid.append(s[i + j])
+			j += 1
+		if len(centroid) > max_len:
+			longest = centroid
+			max_len = len(centroid)
+
+	return "".join(longest)
+
+# TEST
+s = 'fjdajfldafadfaafdafdafdadsd'
+print s
+print longest_palindrome(s)

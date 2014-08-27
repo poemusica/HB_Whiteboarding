@@ -2,13 +2,20 @@
 # Test if all chars in a string are unique.
 
 # SOLUTION 1
-def unique(s):
+def unique_dict(s):
 	d = {}
 	for char in s:
 		if d.get(char):
 			return False
 		d[char] = True
 	return True
+
+# in this case, run-time is n^2
+def unique(l):
+	for i in range(len(l)):
+		if l[i] in l[:i] or l[i] in l[i+1:]:
+			return False
+	return return True
 
 # TESTS 1
 # s1 = "Jessica"

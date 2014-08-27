@@ -184,13 +184,19 @@ def get_first_duplicate(s):
 		if d[char] > 1:
 			return char
 
-print get_first_duplicate('abcdcefgg')
+# print get_first_duplicate('abcdcefgg')
 
 # ==================================
-# QUESTION 9:
-# Using a singly-linked-list,
-# return the center node (rounding down, so on even lists the center node is the last node of the first half).
-
-# count
-# is there count + 1 after me?
-
+# QUESTION 9: Fizzbuzz!
+# Write an algorithm that prints 'fizz' instead of multiples of 3, 'buzz' instead of multiples of 5, and 'fizzbuzz' instead of multiples of both 3 and 5.
+def fizzbuzz(n):
+	for i in range(1, n+1):
+		result = []
+		if not i % 3:
+			result.append("fizz")
+		if not i % 5:
+			result.append("buzz")
+		if result:
+			print "".join(result)
+		else:
+			print i
