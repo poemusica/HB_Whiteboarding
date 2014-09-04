@@ -23,6 +23,45 @@ def cust_reverse2(l):
 
 # print cust_reverse2([9, 8, 7, 6, 5, 4, 3, 2, 1])
 
+def rev_in_place(l):
+	i = 0
+	while i < len(l)/2:
+		temp = l[i]
+		l[i] = l[len(l) - 1 - i]
+		l[len(l) - 1 - i] = temp
+		i += 1
+
+# TESTS
+# l1 = range(4)
+# l2 = range(5)
+
+# print l1
+# rev_in_place(l1)
+# print l1
+
+# print l2
+# rev_in_place(l2)
+# print l2
+
+def rev_copy(l):
+	result = []
+	for i in range(len(l)):
+		result.append(l[len(l) - 1 - i])
+	return result
+
+# TESTS
+# l1 = range(4)
+# l2 = range(5)
+
+# l1r = rev_copy(l1)
+# print l1
+# print l1r
+
+# l2r = rev_copy(l2)
+# print l2
+# print l2r
+
+
 # ==================================
 # QUESTION 2: produce a list of unique (or non-unique) items in a list
 # in this case, run-time is n^2
@@ -200,3 +239,56 @@ def fizzbuzz(n):
 			print "".join(result)
 		else:
 			print i
+
+# ==================================
+# QUESTION 10: Peasant Multiplication
+
+def peasant_mult(x, y):
+	result = 0
+	sign = 1
+
+	if x < 0:
+		sign = -sign
+		x *= -1
+
+	if y < 0:
+		sign = -sign
+		y *= -1
+
+	while True:
+		if x % 2:
+			result += y 
+		x = x / 2
+		if x == 0:
+			break
+		y *= 2
+
+	return result * sign
+
+# print peasant_mult(54, 96)
+# print peasant_mult(96, 54)
+# print peasant_mult(-54, -96)
+# print peasant_mult(-54, 96)
+
+# ==================================
+# QUESTION 11: Convert a string to an integer
+# consider decimals and negative numbers
+
+def string_to_num(s):
+	if s == "":
+		return None
+	start = 0
+	sign = 1
+	if s[0] == "-":
+		sign = -1
+		start = 1
+	return int(s[start:]) * sign
+
+# TESTS
+# print string_to_num('58343')
+# print type(string_to_num('58343'))
+# print string_to_num('-58343')
+# print type(string_to_num('-58343'))
+
+
+
