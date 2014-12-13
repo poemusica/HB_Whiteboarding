@@ -13,7 +13,7 @@ class LinkedList:
 	def contents(self):
 		node = self.head
 		while node:
-			print node,
+			print node.data
 			node = node.next
 
 	def append(self, data):
@@ -105,4 +105,15 @@ class LinkedList:
 			while d[k] > 1:
 				self.remove(k)
 
+	def reverse(self):
+		node = self.head
+		prev = None
+		while True:
+			temp = node.next
+			node.next = prev
+			prev = node
+			node = temp
 
+			if node == None:
+				self.head = prev
+				break

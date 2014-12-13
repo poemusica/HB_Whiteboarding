@@ -1,16 +1,10 @@
 # matrix rotation
 
-# row0 = ['a', 'b', 'c', 'd', 'e']
-# row1 = ['f', 'g', 'h', 'i', 'j']
-# row2 = ['k', 'l', 'm','n', 'o']
-# row3 = ['p', 'q', 'r', 's', 't']
-# row4 = ['u', 'v', 'w', 'x', 'y']
 
-# matrix = [row0, row1, row2, row3, row4]
-
-matrix = [ ['A', 'B'], ['D', 'C'] ]
-
-print matrix
+def print_matrix(m):
+	for row in matrix:
+		print row
+	print '\n'
 
 def rotate(m):
 	for row in range(len(m)/2):
@@ -21,5 +15,60 @@ def rotate(m):
 			m[len(m)-1-row][len(m)-1-col] = m[len(m)-1-col][row]
 			m[len(m)-1-col][row] = temp
 
-rotate(matrix)
-print matrix
+# rotate(matrix)
+# print matrix
+
+
+def rotatecw(m):
+	w = len(m) - 1
+	i = 0
+	while i < w - 1:
+		j = i
+		while j < w - i:
+			temp = m[j][i]
+			m[j][i] = m[w-i][j]
+			m[w-i][j] = m[w-j][w-i]
+			m[w-j][w-i] = m[i][w-j]
+			m[i][w-j] = temp
+			j += 1
+		i += 1
+	return m
+
+
+def rotateccw(m):
+	w = len(m) - 1
+	i = 0
+	while i < w - 1:
+		j = i
+		while j < w - i:
+			temp = m[j][i]
+			m[j][i] = m[i][w-j]
+			m[i][w-j] = m[w-j][w-i]
+			m[w-j][w-i] = m[w-i][j]
+			m[w-i][j] = temp
+			j += 1
+		i += 1
+	return m
+
+
+matrix4 = [
+['A', 'B', 'C', 'D'], 
+['L', 'M', 'N', 'E'], 
+['K', 'P', 'O', 'F'],
+['J', 'I', 'H', 'G'] ]
+
+matrix5 = [
+['A', 'B', 'C', 'D', 'E'], 
+['P', 'Q', 'R', 'S', 'F'], 
+['O', 'X', 'Y', 'T', 'G'],
+['N', 'W', 'V', 'U', 'H'],
+['M', 'L', 'K', 'J', 'I' ]]
+
+
+print_matrix(matrix)
+rotateccw(matrix)
+print_matrix(matrix)
+rotatecw(matrix)
+print_matrix(matrix)
+rotatecw(matrix)
+print_matrix(matrix)

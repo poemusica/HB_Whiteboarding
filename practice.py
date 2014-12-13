@@ -274,21 +274,290 @@ def peasant_mult(x, y):
 # QUESTION 11: Convert a string to an integer
 # consider decimals and negative numbers
 
+def string_to_num_parse(s):
+	if s == "":
+		return None
+	
+	result = 0
+	start = 0
+	sign = 1
+
+	parsed_s = s.split(".")
+	left = parsed_s[0]
+	
+	if len(parsed_s) > 1:
+		right = parsed_s[1]
+	else:
+		right = ""
+
+	if left and left[0] == "-":
+		sign = -1
+		start = 1
+
+	if left[start:].isdigit():
+		result += int(left[start:])
+
+	if right.isdigit():
+		result += int(right) / (10.0 ** len(right))
+
+	return result * sign
+
+s_to_n = {"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9}
+
 def string_to_num(s):
 	if s == "":
 		return None
-	start = 0
+
+	result = 0
+
+	parsed_s = s.split(".")
+	left = parsed_s[0]
+	if len(parsed_s) > 1:
+		right = parsed_s[1]
+	else:
+		right = ""
+
 	sign = 1
-	if s[0] == "-":
+	start = 0
+	if left and left[0] == "-":
 		sign = -1
 		start = 1
-	return int(s[start:]) * sign
+
+	for i in range(start, len(left)):
+		place = 10 ** (len(left) - 1 - i)
+		result += s_to_n[left[i]] * place
+
+	for i in range(len(right)):
+		place = 10.0 ** (i + 1)
+		result += s_to_n[right[i]] / place
+
+	return result * sign
+
+
 
 # TESTS
 # print string_to_num('58343')
 # print type(string_to_num('58343'))
 # print string_to_num('-58343')
 # print type(string_to_num('-58343'))
+# print string_to_num('-500')
+# print type(string_to_num('-500'))
+
+# print string_to_num('0.01')
+# print type(string_to_num('0.01'))
+# print string_to_num('1.01')
+# print type(string_to_num('1.01'))
+# print string_to_num('0.01')
+# print type(string_to_num('0.01'))
+# print string_to_num('-.1')
+# print type(string_to_num('-.1'))
+# print string_to_num('-1.01')
+# print type(string_to_num('-1.01'))
 
 
+# ==================================
+# QUESTION 12: 
+"""
+Find a path from S to E!
+S = start
+E = end
+# = wall
+* = path
 
+Note: right-hand-rule won't work because of free-standing walls.
+"""
+maze = ["########",
+        "#      E",
+        "# # ####",
+        "# #   ##",
+        "# # ####",
+        "#      S",
+        "########"]
+ 
+# example solution
+solution = ["########",
+            "#  ****E",
+            "# #*####",
+            "# #*  ##",
+            "# #*####",
+            "#  ****S",
+            "########"]
+
+def find_start_end(maze):
+	start = None
+	end = None
+	for y in range(len(maze)):
+		for x in range(len(maze[y])):
+			if maze[y][x] == "S":
+				start = (x, y)
+			if maze[y][x] == "E":
+				end = (x, y)
+	return start, end
+
+def is_outside_or_wall(maze, pos):
+	if pos[0] > len(maze[0]) - 1:
+		return True
+	if pos[0] < 0:
+		return True
+	if pos[1] > len(maze) - 1:
+		return True
+	if pos[1] < 0:
+		return True
+	if maze[pos[1]][pos[0]] == '#':
+	 	return True
+	return False 
+
+def find_path(maze, start=None, end=None, visited=None, path=None):
+	if not (start and end and visited):
+		start, end = find_start_end(maze)
+		visited = {}
+		path = []
+		path.append(start)
+
+	current = start
+
+	if is_outside_or_wall(maze, current):
+		return False
+	if visited.get(current, False):
+		return False
+	else:
+		visited[current] = True
+	if current == end:
+		return path
+
+	north = (current[0], current[1] + 1)
+	south = (current[0], current[1] - 1)
+	east = (current[0] + 1, current[1])
+	west =  (current[0] - 1, current[1]) 
+
+	if find_path(maze, north, end, visited, path) != False:
+			path.append(north)
+			return path
+	if find_path(maze, south, end, visited, path) != False:
+			path.append(south)
+			return path
+	if find_path(maze, east, end, visited, path) != False:
+			path.append(east)
+			return path
+	if find_path(maze, west, end, visited, path) != False:
+			path.append(west)
+			return path
+	return False
+
+def print_path(maze):
+	path = find_path(maze)
+	print path
+	if path:
+		path = sorted(path, key=lambda p : p[0], reverse=True)
+		path = sorted(path, key=lambda p : p[1], reverse=True)
+		step = path.pop()
+	else:
+		step = None
+	for y in range(len(maze)):
+		for x in range(len(maze[y])):
+			if (x, y) == step:
+				print '*',
+				if path:
+					step = path.pop()
+			else:
+				print maze[y][x],
+		print '\n',	
+
+# TEST
+# print_path(maze)
+
+
+# ==================================
+# QUESTION 13: Replace all curse words in a string with asterisks. 
+
+bad_words = ['eff', 'effing', 'effer', 'effed', 'shizz']
+
+punctuation = ['.', ',', ';', ':', '!', '\'', ' ', '\n']
+
+text = "That effing effer did some really effed up shizz! I can't believe that effer."
+
+def replace_curses(text):
+	result = []
+	charlist = ['']
+	for char in text:
+		if char in punctuation:
+			word = ''.join(charlist)
+			if word in bad_words:
+				word = '*' * len(word)
+			result.append(word)
+			result.append(char)
+			charlist = ['']
+		else:
+			charlist.append(char)
+	return ''.join(result)
+
+# TEST
+# print text
+# print replace_curses(text)
+
+# ==================================
+# QUESTION 14: Write a function that determines whether a number is prime.
+
+def is_prime(n):
+	if n > 0 and n < 3:
+		return True
+	
+	f1 = 2
+	f2 = n / 2
+	product = f1 * f2
+	mid = ((n / 2) / 2) - 1
+	while f2 >= mid and f1 <= mid:
+		if product == n:
+			return False
+		if product < n:
+			f1 += 1
+			product = f1 * f2
+		if product > n:
+			f2 -= 1
+			product = f1 * f2
+	return True
+
+# print is_prime(33)
+# print is_prime(36)
+
+# ==================================
+# QUESTION 15: Write a function that finds the index in a list where 
+# the sum of the elements to its right equal the sum of the elements
+# to its left.
+
+def find_sum_pivot(l):
+	pivot = len(l)/2
+	rsum = sum(l[:pivot])
+	lsum = sum(l[pivot + 1:])
+
+	while True:
+		if pivot >= len(l) - 2 or pivot < 1:
+			break
+		if rsum == lsum:
+			return pivot
+		if rsum > lsum:
+			rsum -= l[pivot - 1]
+			lsum += l[pivot]
+			pivot -= 1
+		if lsum > rsum:
+			lsum -= l[pivot + 1]
+			rsum += l[pivot]
+			pivot += 1
+
+def find_sum_pivot2(l):
+	rsum = l[0]
+	lsum = sum(l[2:])
+
+	for i in range(1, len(l)-1):
+		if rsum == lsum:
+			return i
+		if lsum > rsum:
+			lsum -= l[i + 1]
+			rsum += l[i]
+
+# TESTS
+# l = [1, 2, 3, 4, 6, 5, 5]
+# print find_sum_pivot(l)
+
+# ==================================
+# QUESTION 16: Find a  word in a boggle board. 

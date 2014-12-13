@@ -30,6 +30,7 @@ def depth_first_traversal(node):
     depth_first_traversal(node.left)
     depth_first_traversal(node.right)
 
+
 def breadth_first_traversal(node):
     q = []
     q.append(node)
@@ -43,19 +44,42 @@ def breadth_first_traversal(node):
             q.append(n.right)
     
 
+def depth_first_search(node, target):
+    if node is None:
+        return False
+    if node.value == target:
+        return True
+
+    return depth_first_search(node.left, target) or depth_first_search(node.right, target)
+
+def breadth_first_search(node, target):
+    q = []
+    q.append(node)
+
+    while q:
+        n = q.pop(0)
+        if n.value == target:
+            return True
+        if n.left:
+            q.append(n.left)
+        if n.right:
+            q.append(n.right)
+
 # TEST
-# root = BinaryTreeNode(0)
-# root.left = BinaryTreeNode(1)
-# root.left.left = BinaryTreeNode(2)
-# root.left.left.left = BinaryTreeNode(3)
-# root.left.left.right = BinaryTreeNode(4)
-# root.left.right = BinaryTreeNode(5)
-# root.right = BinaryTreeNode(6)
-# root.right.left = BinaryTreeNode(7)
-# root.right.left.left = BinaryTreeNode(8)
-# root.right.left.right = BinaryTreeNode(9)
-# root.right.right = BinaryTreeNode(10)
+root = BinaryTreeNode(0)
+root.left = BinaryTreeNode(1)
+root.left.left = BinaryTreeNode(2)
+root.left.left.left = BinaryTreeNode(3)
+root.left.left.right = BinaryTreeNode(4)
+root.left.right = BinaryTreeNode(5)
+root.right = BinaryTreeNode(6)
+root.right.left = BinaryTreeNode(7)
+root.right.left.left = BinaryTreeNode(8)
+root.right.left.right = BinaryTreeNode(9)
+root.right.right = BinaryTreeNode(10)
 
 # breadth_first_traversal(root)
-
 # depth_first_traversal(root)
+
+# print depth_first_search(root, 12)
+# print breadth_first_search(root, 12)

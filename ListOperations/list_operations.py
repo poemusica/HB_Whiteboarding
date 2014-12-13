@@ -43,6 +43,8 @@ def last(input_list):
 
 # QUESTION 4
 """Return all elements of the input list except the last."""
+def except_last(input_list):
+    return input_list[:-1]
 
 # SOLUTION 4
 def init(input_list):

@@ -310,6 +310,8 @@ class CircularLinkedList():
 
 # ==================================
 # QUESTION 4: Find the longest palindrom in a string.
+
+# NOTE THIS IS BROKEN
 def longest_palindrome(s):
 	max_len = 0
 	longest = []
@@ -333,3 +335,4 @@ def longest_palindrome(s):
 s = 'fjdajfldafadfaafdafdafdadsd'
 print s
 print longest_palindrome(s)
+# fadfaafdaf
